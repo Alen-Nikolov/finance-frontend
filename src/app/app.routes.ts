@@ -5,5 +5,6 @@ export const routes: Routes = [
   { path: 'notes', loadComponent: () => import('./pages/notes/notes').then(m => m.Notes) },
   { path: 'calculator', loadComponent: () => import('./pages/calculator/calculator').then(m => m.Calculator) },
   { path: 'budget', loadComponent: () => import('./pages/budget/budget').then(m => m.Budget) },
+   { path: 'hello-tedi', loadComponent: () => import('./pages/hello/hello').then(m => m.Hello) },
   { path: '**', redirectTo: '' }
 ];
