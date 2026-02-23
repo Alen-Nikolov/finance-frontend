@@ -1,0 +1,30 @@
+<header class="nav-header">
+  <div class="nav-title">Finance Dashboard</div>
+  <button
+    class="nav-toggle"
+    type="button"
+    (click)="toggleMenu()"
+    aria-label="Toggle navigation"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav class="nav-links" [class.open]="isMenuOpen()">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closeMenu()"
+      >Dashboard</a
+    >
+    <a routerLink="/notes" routerLinkActive="active" (click)="closeMenu()">Notes</a>
+    <a routerLink="/calculator" routerLinkActive="active" (click)="closeMenu()"
+      >Calculator</a
+    >
+    <a routerLink="/budget" routerLinkActive="active" (click)="closeMenu()">Budget</a>
+  </nav>
+</header>
+<main>
+  <router-outlet />
+</main>

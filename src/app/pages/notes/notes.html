@@ -1,0 +1,51 @@
+<section class="page">
+  <h1>Notes</h1>
+
+  <form class="note-form" (ngSubmit)="saveNote()">
+    <div class="field-row">
+      <textarea
+        name="content"
+        [(ngModel)]="content"
+        rows="3"
+        placeholder="Write your note..."
+      ></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="submit">
+        {{ isEditing ? 'Update note' : 'Add note' }}
+      </button>
+      <button type="button" class="secondary" (click)="resetForm()" *ngIf="isEditing">
+        Cancel edit
+      </button>
+    </div>
+  </form>
+
+  <section class="notes-list" *ngIf="notes().length; else emptyState">
+    <article class="note" *ngFor="let note of notes()">
+      <div class="note-main">
+        <p class="note-content" [class.completed]="note.completed">
+          {{ note.content || '—' }}
+        </p>
+        <label class="note-check">
+          <input
+            type="checkbox"
+            [checked]="note.completed"
+            (change)="toggleCompleted(note.id)"
+          />
+        </label>
+      </div>
+
+      <div class="note-footer">
+        <button type="button" (click)="editNote(note)">Edit</button>
+        <button type="button" class="danger" (click)="deleteNote(note.id)">
+          Delete
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <ng-template #emptyState>
+    <p class="empty">No notes yet. Add your first one above.</p>
+  </ng-template>
+</section>

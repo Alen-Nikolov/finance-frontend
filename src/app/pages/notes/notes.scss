@@ -1,0 +1,120 @@
+.page {
+  padding: 1.5rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.page h1 {
+  margin: 0 0 1rem 0;
+  font-size: 1.75rem;
+}
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0 auto 1.5rem;
+  max-width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: oklch(0.97 0 0);
+  box-shadow: 0 4px 12px oklch(0.8 0 0 / 0.2);
+}
+
+.field-row input,
+.field-row textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  border: 1px solid oklch(0.8 0.02 260);
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  resize: vertical;
+}
+
+.field-row input:focus,
+.field-row textarea:focus {
+  outline: 2px solid oklch(0.7 0.15 260);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+button {
+  border-radius: 999px;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+button[type='submit'] {
+  background: oklch(0.55 0.2 260);
+  color: white;
+}
+
+button.secondary {
+  background: oklch(0.95 0 0);
+  border: 1px solid oklch(0.8 0 0);
+}
+
+button.danger {
+  background: oklch(0.6 0.2 20);
+  color: white;
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.note {
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid oklch(0.85 0.02 260);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.note-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.note-content {
+  margin: 0;
+  white-space: pre-wrap;
+  flex: 1;
+}
+
+.note-check input[type='checkbox'] {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.note-title.completed,
+.note-content.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.note-footer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.25rem;
+}
+
+.empty {
+  margin-top: 0.5rem;
+  color: oklch(36.98% 0.014 302.71);
+}
