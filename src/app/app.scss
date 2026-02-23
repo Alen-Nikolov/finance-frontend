@@ -43,6 +43,21 @@
   color: white;
 }
 
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  margin-left: 0.25rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: oklch(0.75 0.2 30);
+  color: oklch(0.1 0.01 260);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;

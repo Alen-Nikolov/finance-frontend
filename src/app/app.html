@@ -19,11 +19,14 @@
       >Dashboard</a
     >
     <a routerLink="/notes" routerLinkActive="active" (click)="closeMenu()">Notes</a>
-    <a routerLink="/calculator" routerLinkActive="active" (click)="closeMenu()"
-      >Calculator</a
-    >
+    <a routerLink="/calculator" routerLinkActive="active" (click)="closeMenu()">Calculator</a>
     <a routerLink="/budget" routerLinkActive="active" (click)="closeMenu()">Budget</a>
-    <a routerLink="/hello-tedi" routerLinkActive="active" (click)="closeMenu()">Hello</a>
+    <a routerLink="/hello-tedi" routerLinkActive="active" (click)="closeMenu()">
+      Hello
+      <span class="nav-pill" *ngIf="unreadChatCount() > 0">
+        {{ unreadChatCount() }}
+      </span>
+    </a>
   </nav>
 </header>
 <main>

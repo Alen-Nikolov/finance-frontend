@@ -1,6 +1,60 @@
 <section class="hello-page">
-  <div class="hello-banner">
-    Hello Tedi!
+  <div class="hello-panel">
+    <h1 class="hello-title">Hello Tedi!</h1>
+
+    <form class="hello-form" (ngSubmit)="send()">
+      <div class="hello-form-row">
+        <label>
+          <span class="field-label">Name</span>
+          <input
+            type="text"
+            [ngModel]="username()"
+            (ngModelChange)="username.set($event)"
+            name="username"
+            placeholder="Your name"
+          />
+        </label>
+      </div>
+
+      <div class="hello-form-row message-row">
+        <textarea
+          name="message"
+          rows="2"
+          [ngModel]="text()"
+          (ngModelChange)="text.set($event)"
+          [disabled]="!username().trim()"
+          placeholder="Type a message…"
+        ></textarea>
+        <button
+          type="submit"
+          class="send-btn"
+          [disabled]="!username().trim() || !text().trim()"
+        >
+          Send
+        </button>
+      </div>
+    </form>
+
+    <div class="hello-messages" *ngIf="messages().length; else empty">
+      <div
+        class="hello-message"
+        *ngFor="let msg of messages()"
+      >
+        <div class="hello-message-header">
+          <span class="hello-message-user">{{ msg.username }}</span>
+          <span class="hello-message-time">
+            {{ msg.createdAt | date: 'shortTime' }}
+          </span>
+        </div>
+        <div class="hello-message-body">
+          {{ msg.content }}
+        </div>
+      </div>
+    </div>
+
+    <ng-template #empty>
+      <p class="hello-empty">No messages yet. Say hi!</p>
+    </ng-template>
   </div>
 </section>
 
