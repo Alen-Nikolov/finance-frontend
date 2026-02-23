@@ -12,7 +12,7 @@ export interface NoteDto {
 @Injectable({ providedIn: 'root' })
 export class NotesService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:3000/api/notes';
+  private readonly baseUrl = 'https://finance-backend-x0tv.onrender.com/api/notes';
 
   async list(): Promise<NoteDto[]> {
     return firstValueFrom(this.http.get<NoteDto[]>(this.baseUrl));
