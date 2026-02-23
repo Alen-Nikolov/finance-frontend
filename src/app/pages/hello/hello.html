@@ -26,6 +26,7 @@
           (ngModelChange)="text.set($event)"
           [disabled]="!username().trim()"
           placeholder="Type a message…"
+          (keyup.enter)="send()"
         ></textarea>
         <button
           type="submit"

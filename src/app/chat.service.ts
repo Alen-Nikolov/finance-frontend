@@ -19,7 +19,7 @@ export class ChatService {
   constructor() {
     // for dev: http://localhost:3000 
     // for prod: https://finance-backend-x0tv.onrender.com
-    const baseOrigin = 'http://localhost:3000';
+    const baseOrigin = 'https://finance-backend-x0tv.onrender.com';
 
     this.socket = io(baseOrigin, {
       transports: ['websocket', 'polling'],
