@@ -11,6 +11,8 @@
             [ngModel]="username()"
             (ngModelChange)="username.set($event)"
             name="username"
+            [readonly]="text() !== ''" 
+            [disabled]="text() !== ''"
             placeholder="Your name"
           />
         </label>
@@ -36,10 +38,7 @@
     </form>
 
     <div class="hello-messages" *ngIf="messages().length; else empty">
-      <div
-        class="hello-message"
-        *ngFor="let msg of messages()"
-      >
+      <div class="hello-message" *ngFor="let msg of messages()">
         <div class="hello-message-header">
           <span class="hello-message-user">{{ msg.username }}</span>
           <span class="hello-message-time">
@@ -49,6 +48,7 @@
         <div class="hello-message-body">
           {{ msg.content }}
         </div>
+        <button class="delete-btn" (click)="deleteMessage(msg.id)">X</button>
       </div>
     </div>
 

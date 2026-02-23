@@ -17,7 +17,9 @@ export class ChatService {
   private helloActive = false;
 
   constructor() {
-    const baseOrigin = 'https://finance-backend-x0tv.onrender.com';
+    // for dev: http://localhost:3000 
+    // for prod: https://finance-backend-x0tv.onrender.com
+    const baseOrigin = 'http://localhost:3000';
 
     this.socket = io(baseOrigin, {
       transports: ['websocket', 'polling'],
@@ -52,6 +54,10 @@ export class ChatService {
       return;
     }
     this.socket.emit('chat:send', { username: trimmedName, content: trimmedContent });
+  }
+
+  deleteMessage(id: number) {
+    this.socket.emit('chat:delete', { id });
   }
 }
 

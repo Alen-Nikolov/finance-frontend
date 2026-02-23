@@ -33,5 +33,12 @@ export class Hello implements OnInit, OnDestroy {
     this.chat.send(name, content);
     this.text.set('');
   }
+  deleteMessage(id: number) {
+      // Send delete request to backend
+      this.chat.deleteMessage(id);
+    
+      // Update local messages signal
+      this.messages.update((list: any) => list.filter((msg: any) => msg.id !== id));
+  }
 }
 
