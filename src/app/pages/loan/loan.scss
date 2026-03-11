@@ -1,0 +1,395 @@
+.page {
+  padding: 1.5rem;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 1rem 0;
+}
+
+.card {
+  background: oklch(0.97 0.01 260);
+  border-radius: 0.9rem;
+  padding: 1rem;
+  box-shadow: 0 10px 30px oklch(0.2 0.03 260 / 0.08);
+  border: 1px solid oklch(0.9 0.02 260);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+label span {
+  display: block;
+  font-size: 0.85rem;
+  color: oklch(0.5 0.02 260);
+  margin-bottom: 0.25rem;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 0.75rem;
+  border: 1px solid oklch(0.8 0.03 260);
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid oklch(0.6 0.1 260);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.one-time {
+  margin-top: 1rem;
+}
+
+.one-time-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+button {
+  border-radius: 999px;
+  border: none;
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  background: oklch(0.55 0.2 260);
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button.secondary {
+  background: oklch(0.95 0 0);
+  border: 1px solid oklch(0.8 0 0);
+  color: oklch(0.25 0.02 260);
+}
+
+.one-time-list {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.one-time-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.75rem;
+  background: white;
+  border: 1px solid oklch(0.9 0.02 260);
+}
+
+.summary {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.donut {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.donut-left {
+  width: 120px;
+  height: 120px;
+}
+
+.donut-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.donut-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.donut-ring {
+  fill: transparent;
+  stroke: oklch(0.92 0.02 260);
+  stroke-width: 9.5;
+}
+
+.donut-segment {
+  fill: transparent;
+  stroke-width: 9.5;
+  stroke-linecap: butt;
+  cursor: pointer;
+}
+
+.donut-tooltip {
+  min-width: 0;
+  white-space: nowrap;
+  transform: translate(-50%, -125%);
+}
+
+.donut-segment.principal {
+  stroke: oklch(0.55 0.2 260);
+}
+
+.donut-segment.interest {
+  stroke: oklch(0.72 0.2 30);
+}
+
+.donut-right {
+  flex: 1;
+  min-width: 220px;
+}
+
+.donut-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.donut-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.donut-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.swatch {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 0.2rem;
+  display: inline-block;
+}
+
+.swatch.principal {
+  background: oklch(0.55 0.2 260);
+}
+
+.swatch.interest {
+  background: oklch(0.72 0.2 30);
+}
+
+.grow {
+  flex: 1;
+}
+
+.tabs {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.tab {
+  background: transparent;
+  border: 1px solid oklch(0.85 0.02 260);
+  color: oklch(0.25 0.02 260);
+  padding: 0.5rem 0.9rem;
+}
+
+.tab.active {
+  background: oklch(0.55 0.2 260);
+  border-color: transparent;
+  color: white;
+}
+
+.table-wrap {
+  margin-top: 1rem;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 0.6rem 0.75rem;
+  text-align: right;
+  border-bottom: 1px solid oklch(0.92 0.02 260);
+  font-variant-numeric: tabular-nums;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: oklch(0.98 0.01 260);
+  z-index: 1;
+}
+
+tbody tr:nth-child(even) {
+  background: oklch(0.97 0 0);
+}
+
+.graph {
+  margin-top: 1rem;
+}
+
+.graph-wrap {
+  position: relative;
+}
+
+.graph-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.graph-title {
+  font-weight: 600;
+}
+
+.legend {
+  display: inline-flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  color: oklch(0.45 0.02 260);
+  font-size: 0.9rem;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.key i {
+  width: 0.9rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.key.balance i {
+  background: oklch(0.55 0.2 260);
+}
+.key.payment i {
+  background: oklch(0.7 0.18 150);
+}
+.key.interest i {
+  background: oklch(0.72 0.2 30);
+}
+
+.chart {
+  width: 100%;
+  height: 320px;
+  background: white;
+  border-radius: 0.75rem;
+  border: 1px solid oklch(0.9 0.02 260);
+}
+
+.grid line {
+  stroke: oklch(0.92 0.02 260);
+  stroke-width: 1;
+}
+
+.line {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.line.balance {
+  stroke: oklch(0.55 0.2 260);
+}
+.line.payment {
+  stroke: oklch(0.7 0.18 150);
+}
+.line.interest {
+  stroke: oklch(0.72 0.2 30);
+}
+
+.dot {
+  opacity: 0.85;
+}
+
+.dot.balance {
+  fill: oklch(0.55 0.2 260);
+}
+.dot.payment {
+  fill: oklch(0.7 0.18 150);
+}
+.dot.interest {
+  fill: oklch(0.72 0.2 30);
+}
+
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, -110%);
+  background: oklch(0.18 0.02 260 / 0.95);
+  color: white;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.6rem;
+  pointer-events: none;
+  min-width: 140px;
+  box-shadow: 0 12px 30px oklch(0.1 0.02 260 / 0.4);
+}
+
+.tooltip-title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.tooltip-row {
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+
+.labels text {
+  font-size: 10px;
+  fill: oklch(0.5 0.02 260);
+}
+
+.labels text {
+  dominant-baseline: middle;
+}
+
+.labels text:last-child {
+  dominant-baseline: auto;
+}
+
+.graph-foot {
+  margin-top: 0.5rem;
+  color: oklch(0.5 0.02 260);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .one-time-form {
+    grid-template-columns: 1fr;
+  }
+  button {
+    width: 100%;
+  }
+}
+

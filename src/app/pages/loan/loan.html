@@ -1,0 +1,289 @@
+<section class="page">
+  <h1>Loan Amortization</h1>
+
+  <div class="card">
+    <div class="grid">
+      <label>
+        <span>Loan amount</span>
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          [ngModel]="principal()"
+          (ngModelChange)="principal.set($event)"
+        />
+      </label>
+
+      <label>
+        <span>Interest (APR %)</span>
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          [ngModel]="annualRate()"
+          (ngModelChange)="annualRate.set($event)"
+        />
+      </label>
+
+      <label>
+        <span>Term (months)</span>
+        <input
+          type="number"
+          min="1"
+          step="1"
+          [ngModel]="termMonths()"
+          (ngModelChange)="termMonths.set($event)"
+        />
+      </label>
+
+      <label>
+        <span>Extra monthly payment</span>
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          [ngModel]="extraMonthly()"
+          (ngModelChange)="extraMonthly.set($event)"
+        />
+      </label>
+    </div>
+
+    <div class="one-time">
+      <div class="one-time-form">
+        <label>
+          <span>One-time extra month</span>
+          <input
+            type="number"
+            min="1"
+            step="1"
+            [ngModel]="oneTimeMonth()"
+            (ngModelChange)="oneTimeMonth.set($event)"
+          />
+        </label>
+        <label>
+          <span>One-time extra amount</span>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            [ngModel]="oneTimeAmount()"
+            (ngModelChange)="oneTimeAmount.set($event)"
+          />
+        </label>
+        <button type="button" (click)="addOneTime()">Add</button>
+      </div>
+
+      <div class="one-time-list" *ngIf="oneTimes().length">
+        <div class="one-time-item" *ngFor="let x of oneTimes(); let i = index">
+          <div>Month {{ x.month }}: {{ x.amount | number: '1.2-2' }}</div>
+          <button type="button" class="secondary" (click)="removeOneTime(i)">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary card">
+    <div><strong>Months shown:</strong> {{ totals().months }}</div>
+    <div><strong>Total interest:</strong> {{ totals().totalInterest | number: '1.2-2' }}</div>
+    <div><strong>Total extra paid:</strong> {{ totals().totalExtra | number: '1.2-2' }}</div>
+  </div>
+
+  <div class="donut card" *ngIf="schedule().length">
+    <div class="donut-left">
+      <div class="donut-wrap" #donutWrap>
+        <svg class="donut-svg" viewBox="0 0 42 42" (mouseleave)="hideDonutHover()">
+          <circle class="donut-ring" cx="21" cy="21" r="15.915" />
+          <circle
+            class="donut-segment principal"
+            cx="21"
+            cy="21"
+            r="15.915"
+            pathLength="100"
+            [attr.stroke-dasharray]="donut().principalPct + ' ' + donut().interestPct"
+            stroke-dashoffset="25"
+            (mouseenter)="showDonutHover($event, donutWrap, 'Principal: ' + donut().principalPct + '%')"
+            (mousemove)="showDonutHover($event, donutWrap, 'Principal: ' + donut().principalPct + '%')"
+          ></circle>
+          <circle
+            class="donut-segment interest"
+            cx="21"
+            cy="21"
+            r="15.915"
+            pathLength="100"
+            [attr.stroke-dasharray]="donut().interestPct + ' ' + donut().principalPct"
+            [attr.stroke-dashoffset]="25 - donut().principalPct"
+            (mouseenter)="showDonutHover($event, donutWrap, 'Interest: ' + donut().interestPct + '%')"
+            (mousemove)="showDonutHover($event, donutWrap, 'Interest: ' + donut().interestPct + '%')"
+          ></circle>
+        </svg>
+
+        <div
+          class="tooltip donut-tooltip"
+          *ngIf="donutHover() as h"
+          [style.left.px]="h.leftPx"
+          [style.top.px]="h.topPx"
+        >
+          <div class="tooltip-title">{{ h.title }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="donut-right">
+      <div class="donut-title">Cost breakdown</div>
+      <div class="donut-rows">
+        <div class="donut-row">
+          <span class="swatch principal"></span>
+          <span>Principal</span>
+          <span class="grow"></span>
+          <strong>{{ donut().principalPct | number: '1.0-2' }}%</strong>
+        </div>
+        <div class="donut-row">
+          <span class="swatch interest"></span>
+          <span>Interest</span>
+          <span class="grow"></span>
+          <strong>{{ donut().interestPct | number: '1.0-2' }}%</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs card" *ngIf="schedule().length">
+    <button
+      type="button"
+      class="tab"
+      [class.active]="view() === 'table'"
+      (click)="view.set('table')"
+    >
+      Table
+    </button>
+    <button
+      type="button"
+      class="tab"
+      [class.active]="view() === 'graph'"
+      (click)="view.set('graph')"
+    >
+      Graph
+    </button>
+  </div>
+
+  <div class="table-wrap card" *ngIf="schedule().length && view() === 'table'">
+    <table>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Payment</th>
+          <th>Interest</th>
+          <th>Principal</th>
+          <th>Extra</th>
+          <th>Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of schedule()">
+          <td>{{ r.month }}</td>
+          <td>{{ r.payment | number: '1.2-2' }}</td>
+          <td>{{ r.interest | number: '1.2-2' }}</td>
+          <td>{{ r.principal | number: '1.2-2' }}</td>
+          <td>{{ r.extra | number: '1.2-2' }}</td>
+          <td>{{ r.balance | number: '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="graph card" *ngIf="schedule().length && view() === 'graph'">
+    <div class="graph-head">
+      <div class="graph-title">Amortization graph</div>
+      <div class="legend">
+        <span class="key balance"><i></i>Balance</span>
+        <span class="key payment"><i></i>Payment</span>
+        <span class="key interest"><i></i>Interest</span>
+      </div>
+    </div>
+    <div class="graph-wrap" #graphWrap>
+      <svg
+        class="chart"
+        [attr.viewBox]="'0 0 ' + chart().width + ' ' + chart().height"
+        preserveAspectRatio="none"
+        (mousemove)="moveHover($event, graphWrap)"
+        (mouseleave)="hideHover()"
+      >
+      <!-- grid -->
+      <g class="grid">
+        <line *ngFor="let t of chart().ticksYLeft" x1="40" [attr.y1]="t.y" [attr.x2]="chart().width - 40" [attr.y2]="t.y" />
+      </g>
+
+      <!-- lines -->
+      <path class="line balance" [attr.d]="chart().pathBalance"></path>
+      <path class="line payment" [attr.d]="chart().pathPayment"></path>
+      <path class="line interest" [attr.d]="chart().pathInterest"></path>
+
+      <!-- points -->
+      <circle
+        *ngFor="let p of chart().pointsBalance"
+        class="dot balance"
+        [attr.cx]="p.x"
+        [attr.cy]="p.y"
+        r="2.5"
+        (mouseenter)="showHover($event, graphWrap, 'Balance', p.month, p.value)"
+        (mousemove)="showHover($event, graphWrap, 'Balance', p.month, p.value)"
+        (mouseleave)="hideHover()"
+      />
+      <circle
+        *ngFor="let p of chart().pointsPayment"
+        class="dot payment"
+        [attr.cx]="p.x"
+        [attr.cy]="p.y"
+        r="2.2"
+        (mouseenter)="showHover($event, graphWrap, 'Payment', p.month, p.value)"
+        (mousemove)="showHover($event, graphWrap, 'Payment', p.month, p.value)"
+        (mouseleave)="hideHover()"
+      />
+      <circle
+        *ngFor="let p of chart().pointsInterest"
+        class="dot interest"
+        [attr.cx]="p.x"
+        [attr.cy]="p.y"
+        r="2.2"
+        (mouseenter)="showHover($event, graphWrap, 'Interest', p.month, p.value)"
+        (mousemove)="showHover($event, graphWrap, 'Interest', p.month, p.value)"
+        (mouseleave)="hideHover()"
+      />
+
+      <!-- axes labels -->
+      <g class="labels">
+        <text *ngFor="let t of chart().ticksX" [attr.x]="t.x" [attr.y]="chart().height - 6">
+          {{ t.label }}
+        </text>
+
+        <text *ngFor="let t of chart().ticksYLeft" x="6" [attr.y]="t.y + 4">
+          {{ t.label }}
+        </text>
+
+        <text
+          *ngFor="let t of chart().ticksYRight"
+          [attr.x]="chart().width - 6"
+          [attr.y]="t.y + 4"
+          text-anchor="end"
+        >
+          {{ t.label }}
+        </text>
+      </g>
+      </svg>
+
+      <div
+        class="tooltip"
+        *ngIf="hover() as h"
+        [style.left.px]="h.leftPx"
+        [style.top.px]="h.topPx"
+      >
+        <div class="tooltip-title">{{ h.title }}</div>
+        <div class="tooltip-row">Month: {{ h.month }}</div>
+        <div class="tooltip-row">Value: {{ h.value | number: '1.2-2' }}</div>
+      </div>
+    </div>
+    <div class="graph-foot">
+      X-axis: month • Left Y-axis: balance • Right Y-axis: payment/interest
+    </div>
+  </div>
+</section>
+
